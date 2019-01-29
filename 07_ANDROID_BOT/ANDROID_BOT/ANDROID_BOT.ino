@@ -61,13 +61,13 @@ void loop(){
   
   // Match the request
   int val;
-  if (req.indexOf("/motor/L") != -1)                    
+  if (req.indexOf("/bot/L") != -1)                    
     val = 0;
-  else if (req.indexOf("/motor/F") != -1)
+  else if (req.indexOf("/bot/F") != -1)
     val = 1;
-  else if (req.indexOf("/motor/R") != -1)
+  else if (req.indexOf("/bot/R") != -1)
     val = 2;
-  else if (req.indexOf("/motor/S") != -1)
+  else if (req.indexOf("/bot/S") != -1)
     val = 3;
   else{
     Serial.println("invalid request");

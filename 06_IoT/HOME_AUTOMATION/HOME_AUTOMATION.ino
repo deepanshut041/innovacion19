@@ -8,15 +8,11 @@ const char* password = "password";                    //enter the password
 // Create an instance of the server
 // specify the port to listen on as an argument
 WiFiServer server(80);
-int LED = 13;                                         //connect LED at GPIO pin 13(D7)
+int RELAY1 = 12;                                         //connect Relay1 at GPIO pin 12(D6)
+int RELAY2 = 13;                                         //connect Relay2 at GPIO pin 13(D7)
 
-void setup(){
-  Serial.begin(115200);
-  delay(10);
 
-  pinMode(LED, OUTPUT);
-  digitalWrite(LED, HIGH);
-  
+void wifiSetup(){
   // Connect to WiFi network
   Serial.println();
   Serial.println();
@@ -39,6 +35,15 @@ void setup(){
   // Print the IP address
   Serial.println(WiFi.localIP());
 }
+void setup(){
+  Serial.begin(115200);
+  delay(10);
+
+  pinMode(RELAY1, OUTPUT);
+ pinMode(RELAY2,OUTPUT);
+
+  wifiSetup();  
+}
 
 void loop(){
   // Check if a client has connected
@@ -60,18 +65,19 @@ void loop(){
   
   // Match the request
   int val;
-  if (req.indexOf("/led/0") != -1)                    
+  if (req.indexOf("/relay1/0") != -1)                    
     val = 0;
-  else if (req.indexOf("/led/1") != -1)
+  else if (req.indexOf("/relay1/1") != -1)
     val = 1;
+  else if (req.indexOf("/relay2/0") != -1)
+    val = 2;
+  else if (req.indexOf("/relay2/1") != -1)
+    val = 3;
   else{
     Serial.println("invalid request");
     client.stop();
     return;
   }
-
-  // Set GPIO 13 according to the request
-  digitalWrite(LED, val);
   
   client.flush();
 
@@ -79,12 +85,24 @@ void loop(){
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/html");
   client.println(""); //  do not forget this one
-  client.print("LED is now: ");
+  client.print("Relay");
  
-  if(val == 1)
-    client.print("ON");
-  else
-    client.print("OFF");
+  if(val == 0){
+  client.print("1 is OFF now");
+  digitalWrite(RELAY1, LOW);
+  }
+  if(val == 1){
+    client.print("1 is ON now");
+    digitalWrite(RELAY1, HIGH);
+    }
+  if(val == 3){
+    client.print("2 is OFF now");
+    digitalWrite(RELAY2, LOW);
+  }
+  if(val == 3){
+    client.print("1 is ON now");
+    digitalWrite(RELAY2, HIGH);
+  }
   
   Serial.println("Client disonnected");
 
