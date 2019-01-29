@@ -25,4 +25,4 @@ void loop(){
   Serial.println(distance);                // println is used for printing distance
 
   delay(500);
-  }
+}
