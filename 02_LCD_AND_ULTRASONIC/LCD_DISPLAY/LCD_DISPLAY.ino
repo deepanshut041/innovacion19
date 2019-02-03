@@ -19,13 +19,13 @@ void loop(){
   // set cursor to first column, first row
   lcd.setCursor(4, 0);
   // print message
-  lcd.print("Rishab");
+  lcd.print("AKGEC");
   delay(1000);
   // clears the display to print new message
   lcd.clear();
   // set cursor to first column, second row
   lcd.setCursor(0,1);
-  lcd.print("Nachega!");
+  lcd.print("19");
   delay(1000);
   lcd.clear(); 
 }

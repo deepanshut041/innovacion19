@@ -95,12 +95,12 @@ void loop(){
     client.print("1 is ON now");
     digitalWrite(RELAY1, HIGH);
     }
-  if(val == 3){
+  if(val == 2){
     client.print("2 is OFF now");
     digitalWrite(RELAY2, LOW);
   }
   if(val == 3){
-    client.print("1 is ON now");
+    client.print("2 is ON now");
     digitalWrite(RELAY2, HIGH);
   }
   
